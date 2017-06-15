@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"log"
+	"bufio"
 )
 
 // zwraca tresc zapytania
@@ -45,7 +46,7 @@ func VerifyResponse (request string, response string) bool {
 
 func main () {
 	// ustaw informacje o web service
-	url := GetFromFile("configfile.txt");
+	url := GetFromFile("ClientConfig.txt");
 	service := webservice.NewHello_PortType(url, false, nil)
 
 	// zrob request
@@ -70,5 +71,8 @@ func main () {
 		fmt.Println("incorrect response, expected: " + GetExpectedResponse(message))
 	}
 
-
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter to continue")
+	text, _ := reader.ReadString('\n')
+	fmt.Println(text)
 }
