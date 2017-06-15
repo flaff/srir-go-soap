@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"os"
 	"log"
-
 )
 
 // zwraca tresc zapytania
