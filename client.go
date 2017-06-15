@@ -3,6 +3,7 @@ package main
 import (
 	"./webservice"
 	"./echo"
+	"./message"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -12,7 +13,7 @@ import (
 
 // zwraca tresc zapytania
 func GetMessage () string {
-	return "hello didney warld";
+	return message.GetMessage();
 }
 
 // zwraca url servera
@@ -44,7 +45,7 @@ func VerifyResponse (request string, response string) bool {
 	return GetExpectedResponse(request) == response
 }
 
-func main () {
+func _main () {
 	// ustaw informacje o web service
 	url := GetFromFile("ClientConfig.txt");
 	service := webservice.NewHello_PortType(url, false, nil)
