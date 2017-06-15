@@ -8,6 +8,7 @@ import (
 	//"encoding/xml"
 	"encoding/xml"
 	"io/ioutil"
+	"log"
 )
 
 func createHelloResponseString (requestContent string) string {
@@ -17,19 +18,29 @@ func createHelloResponseString (requestContent string) string {
 func handleHello (r *http.Request) string {
 
 	// pobierz strumien danych
-	rawbody, err := ioutil.ReadAll(r.Body);
+	rawbody, err := ioutil.ReadAll(r.Body)
+
+	if (len(rawbody) == 0) {
+		fmt.Println("empty response")
+		return ""
+	}
 
 	// sprawdz, czy jest blad
 	if (err != nil) {
 		fmt.Println("error?");
 	}
 
-	// dekoduj sturmien
-	requestEnvelope := &webservice.SOAPEnvelope{}
-	xml.Unmarshal(rawbody, &requestEnvelope)
+	requestContent := ""
 
-	requestContent := "hello didney warld response";
+	// dekoduj strumien
+	requestEnvelope := new(webservice.SOAPEnvelope)
+	requestEnvelope.Body = webservice.SOAPBody{Content: &requestContent}
+	err = xml.Unmarshal(rawbody, requestEnvelope)
 
+	log.Println("Received response:");
+	log.Println(string(rawbody))
+
+	// stworz odpowiedz
 	responseEnvelope := &webservice.SOAPEnvelope{}
 	responseEnvelope.Body.Content = createHelloResponseString(requestContent);
 

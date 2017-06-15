@@ -22,6 +22,14 @@ func getFromFile() string{
 	return string(files[:]);
 }
 
+func getExpectedResponse (request string) string {
+	return request + " echo"
+}
+
+func verifyResponse (request string, response string) bool {
+	return getExpectedResponse(request) == response
+}
+
 func main () {
 	// ustaw informacje o web service
 	url := getFromFile();			//getUrl()
@@ -41,4 +49,13 @@ func main () {
 	} else {
 		fmt.Println("response from server is: " + response);
 	}
+
+	// weryfikacja odpowiedzi
+	if (verifyResponse(message, response)) {
+		fmt.Println("correct response")
+	} else {
+		fmt.Println("incorrect response, expected: " + getExpectedResponse(message))
+	}
+
+
 }
