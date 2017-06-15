@@ -3,6 +3,7 @@ package main
 import (
 	"./webservice"
 	"fmt"
+	"io/ioutil"
 )
 
 // zwraca tresc zapytania
@@ -14,10 +15,16 @@ func getMessage () string {
 func getUrl () string {
 	return "http://127.0.0.1:8080";
 }
+func getFromFile() string{
+
+	files , _ :=ioutil.ReadFile("e:\\configfile.txt",)
+
+	return string(files[:]);
+}
 
 func main () {
 	// ustaw informacje o web service
-	url := getUrl()
+	url := getFromFile();			//getUrl()
 	service := webservice.NewHello_PortType(url, false, nil)
 
 	// zrob request
