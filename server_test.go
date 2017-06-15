@@ -28,3 +28,21 @@ func TestGetRequestResponse (t *testing.T) {
 		t.Error("got: " + response, "expected: " +expectedResponse)
 	}
 }
+
+func TestVerifyRequest (t *testing.T) {
+	testmsg := "hello didney warld"
+	expected := true
+	computed := VerifyRequest(testmsg)
+
+	if (expected != computed) {
+		t.Error("got: false", "expected: true")
+	}
+
+	testmsg = "9789789798"
+	expected = false
+	computed = VerifyRequest(testmsg)
+
+	if (expected != computed) {
+		t.Error("got: true", "expected: false")
+	}
+}

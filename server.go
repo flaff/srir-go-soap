@@ -3,6 +3,7 @@ package main
 import (
 	"./webservice"
 	"./echo"
+	"./message"
 	"github.com/go-martini/martini"
 	"net/http"
 	"fmt"
@@ -13,6 +14,10 @@ import (
 
 func CreateHelloResponseString(requestContent string) string {
 	return echo.EchoMessage(requestContent)
+}
+
+func VerifyRequest (request string) bool {
+	return message.GetMessage() == request
 }
 
 // zwraca tresc zapytania
@@ -58,6 +63,12 @@ func handleHello(r *http.Request) string {
 
 	// dekoduj zapytanie
 	requestContent := GetRequestContent(rawbody)
+
+	if (VerifyRequest(requestContent)) {
+		fmt.Println("correct message from client: " + requestContent)
+	} else {
+		fmt.Println("INCORRECT message from client: " + requestContent)
+	}
 
 	// zwroc odpowiedz
 	return GetRequestResponse(requestContent)
