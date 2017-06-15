@@ -4,6 +4,9 @@ import (
 	"./webservice"
 	"fmt"
 	"io/ioutil"
+	"os"
+	"log"
+	"testing"
 )
 
 // zwraca tresc zapytania
@@ -13,14 +16,24 @@ func getMessage () string {
 
 // zwraca url servera
 func getUrl () string {
-	return "http://127.0.0.1:8080";
+	url := getFromFile()
+	if url == "" {
+		url = "http://127.0.0.1:8080"
+	}
+	return url
 }
 func getFromFile() string{
 
-	files , _ :=ioutil.ReadFile("e:\\configfile.txt",)
+	pathtofile, _ := os.Getwd();
+	pathtofile=pathtofile+"\\ClientConfig.txt"
+	files , err :=ioutil.ReadFile(pathtofile);
 
+	if err != nil {
+		log.Fatal(err);
+	}
 	return string(files[:]);
 }
+func TestGettingFile(t *testing.T)
 
 func main () {
 	// ustaw informacje o web service
