@@ -36,7 +36,7 @@ func GetFromFile(filename string) string{
 
 
 func GetExpectedResponse (request string) string {
-	return request + " echo"
+	return echo.EchoMessage(request)
 }
 
 func VerifyResponse (request string, response string) bool {
