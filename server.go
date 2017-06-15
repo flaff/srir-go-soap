@@ -2,6 +2,7 @@ package main
 
 import (
 "./webservice"
+	"./echo"
 "github.com/go-martini/martini"
 	"net/http"
 	"fmt"
@@ -12,7 +13,7 @@ import (
 )
 
 func createHelloResponseString (requestContent string) string {
-	return requestContent + " echo"
+	return echo.EchoMessage(requestContent)
 }
 
 func handleHello (r *http.Request) string {
@@ -55,5 +56,4 @@ func main () {
 	m.Post("/", handleHello)
 
 	m.RunOnAddr(":8080")
-
 }

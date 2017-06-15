@@ -2,6 +2,7 @@ package main
 
 import (
 	"./webservice"
+	"./echo"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -33,6 +34,7 @@ func GetFromFile(filename string) string{
 	}
 	return string(files[:]);
 }
+
 
 func GetExpectedResponse (request string) string {
 	return request + " echo"
