@@ -6,26 +6,26 @@ import (
 	"io/ioutil"
 	"os"
 	"log"
-	"testing"
+
 )
 
 // zwraca tresc zapytania
-func getMessage () string {
+func GetMessage () string {
 	return "hello didney warld";
 }
 
 // zwraca url servera
-func getUrl () string {
-	url := getFromFile()
+func GetUrl () string {
+	url := GetFromFile("ClientConfig.txt")
 	if url == "" {
 		url = "http://127.0.0.1:8080"
 	}
 	return url
 }
-func getFromFile() string{
+func GetFromFile(filename string) string{
 
 	pathtofile, _ := os.Getwd();
-	pathtofile=pathtofile+"\\ClientConfig.txt"
+	pathtofile=pathtofile+"\\"+filename
 	files , err :=ioutil.ReadFile(pathtofile);
 
 	if err != nil {
@@ -33,23 +33,22 @@ func getFromFile() string{
 	}
 	return string(files[:]);
 }
-func TestGettingFile(t *testing.T)
 
-func getExpectedResponse (request string) string {
+func GetExpectedResponse (request string) string {
 	return request + " echo"
 }
 
-func verifyResponse (request string, response string) bool {
-	return getExpectedResponse(request) == response
+func VerifyResponse (request string, response string) bool {
+	return GetExpectedResponse(request) == response
 }
 
 func main () {
 	// ustaw informacje o web service
-	url := getFromFile();			//getUrl()
+	url := GetFromFile("configfile.txt");
 	service := webservice.NewHello_PortType(url, false, nil)
 
 	// zrob request
-	message := getMessage()
+	message := GetMessage()
 	responsePtr, err := service.SayHello(&message)
 
 	// zweryfikuj odpowiedz
@@ -64,10 +63,10 @@ func main () {
 	}
 
 	// weryfikacja odpowiedzi
-	if (verifyResponse(message, response)) {
+	if (VerifyResponse(message, response)) {
 		fmt.Println("correct response")
 	} else {
-		fmt.Println("incorrect response, expected: " + getExpectedResponse(message))
+		fmt.Println("incorrect response, expected: " + GetExpectedResponse(message))
 	}
 
 
