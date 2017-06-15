@@ -1,0 +1,3 @@
+Scrypt wyszukuje uruchamiany plik servera oraz przypisuje mu określone prawa.
+Za pomoca exec.Command() uruchamia zdalnie server na okreslonych wcześniej prawach oraz oczekuje na jego zamkniecie.
+Po zamknieciu sie server kończy działanie aplikacj
